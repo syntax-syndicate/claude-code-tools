@@ -1,6 +1,6 @@
 [project]
 name = "claude-code-tools"
-version = "0.1.8"
+version = "0.1.9"
 description = "Collection of tools for working with Claude Code"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -22,9 +22,21 @@ tmux-cli = "claude_code_tools.tmux_cli_controller:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+exclude = [
+    "demos/",
+    "*.mp4",
+    "*.gif",
+    "*.screenstudio/",
+    ".claude/",
+    "claude-code-router/",
+    "reference/",
+    "ghostty",
+]
+
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.8"
+version = "0.1.9"
 tag_format = "v$version"
 version_files = [
     "pyproject.toml:version",
