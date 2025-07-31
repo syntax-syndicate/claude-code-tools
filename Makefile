@@ -1,4 +1,4 @@
-.PHONY: install release patch minor major dev-install help publish clean
+.PHONY: install release patch minor major dev-install help clean all-patch
 
 help:
 	@echo "Available commands:"
@@ -8,7 +8,7 @@ help:
 	@echo "  make patch        - Bump patch version (0.0.X) and install"
 	@echo "  make minor        - Bump minor version (0.X.0) and install"
 	@echo "  make major        - Bump major version (X.0.0) and install"
-	@echo "  make publish      - Bump patch version, build, and publish to PyPI"
+	@echo "  make all-patch    - Bump patch, clean, and build (ready for uv publish)"
 	@echo "  make clean        - Clean build artifacts"
 
 install:
@@ -42,13 +42,11 @@ clean:
 	rm -rf dist/*
 	@echo "Clean complete!"
 
-publish:
+all-patch:
 	@echo "Bumping patch version..."
 	uv run cz bump --increment PATCH --yes
 	@echo "Cleaning old builds..."
 	rm -rf dist/*
 	@echo "Building package..."
 	uv build
-	@echo "Publishing to PyPI..."
-	uv publish
-	@echo "Published successfully!"
+	@echo "Build complete! Ready for: uv publish --token YOUR_TOKEN"
