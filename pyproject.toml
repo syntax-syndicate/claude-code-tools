@@ -1,6 +1,6 @@
 [project]
 name = "claude-code-tools"
-version = "0.1.10"
+version = "0.1.11"
 description = "Collection of tools for working with Claude Code"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -23,6 +23,10 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
+include = [
+    "claude_code_tools/**/*.py",
+    "docs/*.md",
+]
 exclude = [
     "demos/",
     "*.mp4",
@@ -36,7 +40,7 @@ exclude = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.10"
+version = "0.1.11"
 tag_format = "v$version"
 version_files = [
     "pyproject.toml:version",
