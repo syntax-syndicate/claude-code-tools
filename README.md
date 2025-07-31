@@ -4,7 +4,7 @@ A collection of practical tools, hooks, and utilities for enhancing Claude Code.
 
 ## 🎮 tmux-cli: Bridging Claude Code and Interactive CLIs
 
- ![tmux-cli demo](demos/tmux-cli-demo-final.gif)
+ ![tmux-cli demo](demos/tmux-cli-demo-short.gif)
 
 Consider these scenarios:
 
