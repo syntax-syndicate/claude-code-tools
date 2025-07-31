@@ -1,8 +1,11 @@
 # claude-code-tools
 
-A collection of practical tools, hooks, and utilities for enhancing Claude Code.
+A collection of practical tools, hooks, and utilities for enhancing Claude Code
+and other CLI coding agents.
 
 ## 🎮 tmux-cli: Bridging Claude Code and Interactive CLIs
+
+> **Note**: While the description below focuses on Claude Code, tmux-cli works with any CLI coding agent.
 
  ![tmux-cli demo](demos/tmux-cli-demo-short.gif)
 
@@ -35,7 +38,10 @@ use tmux-cli behind the scenes.
 ## 🚀 Quick Start
 
 ```bash
-# Install all the command-line tools
+# Install from PyPI (recommended)
+uv tool install claude-code-tools
+
+# Or install the latest development version from GitHub
 uv tool install git+https://github.com/pchalasani/claude-code-tools
 ```
 

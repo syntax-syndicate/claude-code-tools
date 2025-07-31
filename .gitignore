@@ -179,3 +179,4 @@ package-lock.json
 # Backup files
 *.backup*
 to-be-deleted.md
+reference/
