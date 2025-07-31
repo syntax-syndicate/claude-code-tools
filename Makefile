@@ -1,4 +1,4 @@
-.PHONY: install release patch minor major dev-install help
+.PHONY: install release patch minor major dev-install help publish
 
 help:
 	@echo "Available commands:"
@@ -8,6 +8,7 @@ help:
 	@echo "  make patch        - Bump patch version (0.0.X) and install"
 	@echo "  make minor        - Bump minor version (0.X.0) and install"
 	@echo "  make major        - Bump major version (X.0.0) and install"
+	@echo "  make publish      - Bump patch version, build, and publish to PyPI"
 
 install:
 	uv tool install --force -e .
@@ -34,3 +35,12 @@ major:
 	uv run cz bump --increment MAJOR --yes
 	uv tool install --force --reinstall .
 	@echo "Installation complete!"
+
+publish:
+	@echo "Bumping patch version..."
+	uv run cz bump --increment PATCH --yes
+	@echo "Building package..."
+	uv build
+	@echo "Publishing to PyPI..."
+	uv publish
+	@echo "Published successfully!"
