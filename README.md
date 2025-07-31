@@ -4,6 +4,8 @@ A collection of practical tools, hooks, and utilities for enhancing Claude Code.
 
 ## 🎮 tmux-cli: Bridging Claude Code and Interactive CLIs
 
+ ![tmux-cli demo](demos/tmux-cli-demo-final.gif)
+
 Consider these scenarios:
 
 You're using Claude Code (CC) to build an interactive script. The script prompts 
@@ -12,7 +14,7 @@ for user input, but CC can't respond to prompts.
 You want Claude Code to debug using pdb, stepping through code line by line.
 
 You need CC to launch another Claude Code instance for code review - not as a 
-hidden sub-agent, but as a visible session you can monitor.
+hidden sub-agent, but as a visible session you can monitor (as shown in gif above).
 
 **tmux-cli enables these workflows** by giving Claude Code programmatic control 
 over terminal applications.
