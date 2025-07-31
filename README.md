@@ -22,24 +22,9 @@ multiplexer that lets you create and manage multiple terminal sessions. The key
 benefit for our purposes is that tmux is scriptable and allows sending keystrokes 
 to specific panes or sessions programmatically.
 
-```bash
-# Handle interactive prompts
-tmux-cli --launch "python interactive_game.py"
-tmux-cli --send "yes"
-tmux-cli --capture
-
-# Debug with pdb
-tmux-cli --launch "python -m pdb buggy_script.py"
-tmux-cli --send "n"  # next line
-tmux-cli --send "p variable"  # print variable
-
-# Launch another Claude Code instance
-tmux-cli --launch "claude" --name reviewer
-tmux-cli --send "Review this code for security issues..."
-```
-
-Now CC can test CLI applications, debug interactively, orchestrate multiple 
-processes, and even run other instances of Claude Code in observable sessions.
+**Important**: You don't need to learn tmux-cli commands. Claude Code will handle 
+all the interactions automatically. Just tell CC what you want to do, and it will 
+use tmux-cli behind the scenes.
 
 **Think Playwright for terminals** - Terminal automation for AI agents.
 
@@ -59,51 +44,24 @@ This gives you:
 
 ## 🎮 tmux-cli Deep Dive
 
-### Common Use Cases
+### What Claude Code Can Do With tmux-cli
 
-1. **Testing Interactive Scripts** - Test scripts that require user input, which
-   Claude Code normally cannot handle:
-   ```bash
-   tmux-cli --launch "python interactive_script.py"
-   tmux-cli --send "user input here"
-   tmux-cli --capture
-   ```
+1. **Test Interactive Scripts** - CC can run and interact with scripts that 
+   require user input, answering prompts automatically based on your instructions.
 
-2. **UI Development & Testing** - Launch web apps and test them with browser
-   automation:
-   ```bash
-   # Launch your app
-   tmux-cli --launch "npm run dev" --name webapp
-   
-   # Use with Puppeteer MCP server to interact with the browser
-   # Claude can now see the app running and test UI interactions
-   ```
+2. **UI Development & Testing** - CC can launch web servers and coordinate with 
+   browser automation tools to test your applications.
 
-3. **Interactive Debugging** - Step through code with debuggers for deep
-   understanding:
-   ```bash
-   # Python with pdb
-   tmux-cli --launch "python -m pdb script.py"
-   tmux-cli --send "n"  # next line
-   tmux-cli --send "p variable_name"  # print variable
-   
-   # Node.js debugging
-   tmux-cli --launch "node inspect app.js"
-   
-   # GDB for C/C++
-   tmux-cli --launch "gdb ./program"
-   ```
+3. **Interactive Debugging** - CC can use debuggers (pdb, node inspect, gdb) to 
+   step through code, examine variables, and help you understand program flow.
 
-4. **Claude-to-Claude Communication** - Launch another Claude instance for
-   specialized tasks:
-   ```bash
-   tmux-cli --launch "claude" --name reviewer
-   tmux-cli --send "Review this code for security issues..."
-   tmux-cli --capture
-   ```
+4. **Claude-to-Claude Communication** - CC can launch another Claude Code instance 
+   to get specialized help or code reviews.
 
-This tool transforms Claude Code from a static analyzer into an interactive
-development companion that can test, debug, and validate code in real-time.
+Claude Code knows how to use tmux-cli through its built-in help. You just describe 
+what you want, and CC handles the technical details.
+
+For complete command reference, see [docs/tmux-cli-instructions.md](docs/tmux-cli-instructions.md).
 
 ### Setting up tmux-cli for Claude Code
 
