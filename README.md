@@ -16,8 +16,9 @@ for user input, but CC can't respond to prompts.
 
 You want Claude Code to debug using pdb, stepping through code line by line.
 
-You need CC to launch another Claude Code instance for code review - not as a 
-hidden sub-agent, but as a visible session you can monitor (as shown in gif above).
+You need your CLI code agent to launch another instance of the same OR different 
+CLI code agent, AND interact with it, not as a hidden sub-agent, 
+but as a visible session you can monitor (as shown in gif above).
 
 **tmux-cli enables these workflows** by giving Claude Code programmatic control 
 over terminal applications.
