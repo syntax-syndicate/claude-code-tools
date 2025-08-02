@@ -180,3 +180,6 @@ package-lock.json
 *.backup*
 to-be-deleted.md
 reference/
+
+# Ignore config.json files at any level
+**/config.json
