@@ -137,6 +137,10 @@ won't persist after exiting Claude Code.
 
 For detailed documentation, see [docs/find-claude-session.md](docs/find-claude-session.md).
 
+Looks like this -- 
+
+![fcs.png](docs/fcs.png)
+
 ## 🔐 vault
 
 Centralized encrypted backup for .env files across all your projects using SOPS.
