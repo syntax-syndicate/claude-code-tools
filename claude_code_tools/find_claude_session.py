@@ -38,19 +38,31 @@ except ImportError:
 console = Console() if RICH_AVAILABLE else None
 
 
-def get_claude_project_dir() -> Path:
+def get_claude_project_dir(claude_home: Optional[str] = None) -> Path:
     """Convert current working directory to Claude project directory path."""
     cwd = os.getcwd()
+    
+    # Use provided claude_home or default to ~/.claude
+    if claude_home:
+        base_dir = Path(claude_home).expanduser()
+    else:
+        base_dir = Path.home() / ".claude"
 
     # Replace / with - to match Claude's directory naming convention
     project_path = cwd.replace("/", "-")
-    claude_dir = Path.home() / ".claude" / "projects" / project_path
+    claude_dir = base_dir / "projects" / project_path
     return claude_dir
 
 
-def get_all_claude_projects() -> List[Tuple[Path, str]]:
+def get_all_claude_projects(claude_home: Optional[str] = None) -> List[Tuple[Path, str]]:
     """Get all Claude project directories with their original paths."""
-    projects_dir = Path.home() / ".claude" / "projects"
+    # Use provided claude_home or default to ~/.claude
+    if claude_home:
+        base_dir = Path(claude_home).expanduser()
+    else:
+        base_dir = Path.home() / ".claude"
+    
+    projects_dir = base_dir / "projects"
     
     if not projects_dir.exists():
         return []
@@ -175,13 +187,14 @@ def get_session_preview(filepath: Path) -> str:
     return "No preview available"
 
 
-def find_sessions(keywords: List[str], global_search: bool = False) -> List[Tuple[str, float, int, str, str, str]]:
+def find_sessions(keywords: List[str], global_search: bool = False, claude_home: Optional[str] = None) -> List[Tuple[str, float, int, str, str, str]]:
     """
     Find all Claude Code sessions containing the specified keywords.
     
     Args:
         keywords: List of keywords to search for
         global_search: If True, search all projects; if False, search current project only
+        claude_home: Optional custom Claude home directory (defaults to ~/.claude)
         
     Returns:
         List of tuples (session_id, modification_time, line_count, project_name, preview, project_path) sorted by modification time
@@ -190,7 +203,7 @@ def find_sessions(keywords: List[str], global_search: bool = False) -> List[Tupl
     
     if global_search:
         # Search all projects
-        projects = get_all_claude_projects()
+        projects = get_all_claude_projects(claude_home)
         
         if RICH_AVAILABLE and console:
             with Progress(
@@ -229,7 +242,7 @@ def find_sessions(keywords: List[str], global_search: bool = False) -> List[Tupl
                         matching_sessions.append((session_id, mod_time, line_count, project_name, preview, original_path))
     else:
         # Search current project only
-        claude_dir = get_claude_project_dir()
+        claude_dir = get_claude_project_dir(claude_home)
         
         if not claude_dir.exists():
             return []
@@ -438,6 +451,11 @@ To persist directory changes when resuming sessions:
         action="store_true",
         help="Output shell commands for evaluation (for use with shell function)"
     )
+    parser.add_argument(
+        "--claude-home",
+        type=str,
+        help="Path to Claude home directory (default: ~/.claude)"
+    )
     
     args = parser.parse_args()
     
@@ -450,7 +468,7 @@ To persist directory changes when resuming sessions:
     
     # Check if searching current project only
     if not getattr(args, 'global'):
-        claude_dir = get_claude_project_dir()
+        claude_dir = get_claude_project_dir(args.claude_home)
         
         if not claude_dir.exists():
             print(f"No Claude project directory found for: {os.getcwd()}", file=sys.stderr)
@@ -458,7 +476,7 @@ To persist directory changes when resuming sessions:
             sys.exit(1)
     
     # Find matching sessions
-    matching_sessions = find_sessions(keywords, global_search=getattr(args, 'global'))
+    matching_sessions = find_sessions(keywords, global_search=getattr(args, 'global'), claude_home=args.claude_home)
     
     if not matching_sessions:
         scope = "all projects" if getattr(args, 'global') else "current project"

@@ -106,7 +106,15 @@ Add this function to your shell config (.bashrc/.zshrc) for persistent directory
 changes:
 
 ```bash
-fcs() { eval "$(find-claude-session --shell "$@" | sed '/^$/d')"; }
+fcs() {
+    # Check if user is asking for help
+    if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
+        find-claude-session --help
+        return
+    fi
+    # Run find-claude-session in shell mode and evaluate the output
+    eval "$(find-claude-session --shell "$@" | sed '/^$/d')"
+}
 ```
 
 Or source the provided function:
