@@ -96,6 +96,52 @@ starship preset catppuccin-powerline -o ~/.config/starship.toml
 But if you want to tweak it, see the starship config docs.
 https://starship.rs/guide/
 
+## Enhanced Directory Listings with eza
+
+Eza is a modern replacement for `ls` with colors, icons, and Git integration.
+
+### Installation
+
+```bash
+brew install eza
+```
+
+### Configuration
+
+Add these aliases to your `~/.zshrc` to replace default `ls` commands:
+
+```bash
+# Replace ls with eza for beautiful directory listings
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -l --icons --group-directories-first --header'
+alias la='eza -la --icons --group-directories-first --header'
+alias lt='eza --tree --icons --level=2'
+alias ltd='eza --tree --icons --level=2 --only-dirs'
+
+# Extended eza aliases
+alias l='eza -lbF --git --icons'                # list with git status
+alias llm='eza -lbGd --git --sort=modified'     # long list, modified date sort
+alias lls='eza -lbhHigmuSa --time-style=long-iso --git --color-scale'  # full details
+```
+
+### Features
+
+- **Icons**: Shows file type icons (requires a Nerd Font)
+- **Colors**: Color-codes files by type and permissions
+- **Git Integration**: Shows git status in listings
+- **Tree View**: Built-in tree view with `--tree` flag
+- **Sorting**: Groups directories first by default
+
+### Usage Examples
+
+```bash
+ls              # Basic listing with icons
+ll              # Long format with details
+la              # Show hidden files
+lt              # Tree view (2 levels)
+l               # List with git status indicators
+```
+
 ## Terminal Title Management
 
 Add custom terminal title that shows current directory:
